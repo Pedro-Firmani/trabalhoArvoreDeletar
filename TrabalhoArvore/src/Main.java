@@ -13,11 +13,13 @@ public class Main {
         arvoreBinaria.inserir(17);
         arvoreBinaria.inserir(19);
         arvoreBinaria.inserir(13);
-        //10,4,6,7,5,2,14,12,18,17,19,13
+        arvoreBinaria.inserir(15);
+        arvoreBinaria.inserir(16);
+        //10,4,6,7,5,2,14,12,18,17,19,13,15,16
 
         arvoreBinaria.preOrdem(arvoreBinaria.getRaiz());
         System.out.println();
-        arvoreBinaria.deletar(18);
+        arvoreBinaria.deletar(10);
         arvoreBinaria.preOrdem(arvoreBinaria.getRaiz());
 
     }

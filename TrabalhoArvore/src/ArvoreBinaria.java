@@ -134,39 +134,36 @@ public class ArvoreBinaria {
         }
     }
     public void remocaoRaizSecundaria(No atual, Integer valor) {
-        No pai = atual;
-        No aux = atual;
+        No paiNoRemovido = atual;
+        No noSubstituidor = atual;
+        No paiSubsituido = noSubstituidor;
         do {
             if (valor < atual.getValor()) {
-                pai = atual;
+                paiNoRemovido = atual;
                 atual = atual.getEsq();
             } else {
-                pai = atual;
+                paiNoRemovido = atual;
                 atual = atual.getDir();
             }
         } while (atual.getValor() != valor);
-        aux = atual.getDir();
-        boolean foiPraEsquerda = false;
-        if (aux.getEsq() != null) {
-            No segura = aux;
+        noSubstituidor = atual.getDir();
+        if (noSubstituidor.getEsq() != null) {
             do {
-                segura = aux;
-                aux = aux.getEsq();
-            } while (aux.getEsq() != null);
-            segura.setEsq(null);
-            foiPraEsquerda = true;
+                paiSubsituido = noSubstituidor;
+                noSubstituidor = noSubstituidor.getEsq();
+            } while (noSubstituidor.getEsq() != null);
+            paiSubsituido.setEsq(noSubstituidor.getDir());
         }
-        if (aux.getValor() < raiz.getValor()){
-            pai.setEsq(atual.getDir());
-            aux.setDir(atual.getEsq());
+        if (atual.getDir() == noSubstituidor){
+            atual.setDir(null);
+        } else{
+            noSubstituidor.setDir(atual.getDir());
+        }
+        noSubstituidor.setEsq(atual.getEsq());
+        if (paiNoRemovido.getValor() > atual.getValor()) {
+            paiNoRemovido.setEsq(noSubstituidor);
         } else {
-            if (foiPraEsquerda) {
-                aux.setDir(atual.getDir());
-                aux.setEsq(atual.getEsq());
-            } else {
-                aux.setEsq(atual.getEsq());
-                pai.setDir(aux);
-            }
+            paiNoRemovido.setDir(noSubstituidor);
         }
     }
 
@@ -248,5 +245,6 @@ public class ArvoreBinaria {
         }
         No atual = this.raiz;
         remocaoRaizSecundaria(atual, valor);
+        System.out.println("Numero " + valor + " excluído com sucesso.");
     }
 }
